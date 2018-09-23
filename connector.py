@@ -1,7 +1,7 @@
 import configparser
-import sys
-import os
 from selenium import webdriver
+import sys
+
 
 config = configparser.ConfigParser()
 config.read('configurations.ini')
@@ -55,10 +55,10 @@ login_button_name = get_config('Environment', 'login_button_name') \
     or 'login'
 username = get_config('Credentials', 'username')
 password = get_config('Credentials', 'password')
-webdriver = get_webdriver(get_config('Default', 'browser'))
+web_driver = get_webdriver(get_config('Default', 'browser'))
 
 
-if not webdriver:
+if not web_driver:
     print("Error:\tUnable to bind to any browser.")
     print("\tPlease specify a browser in the configurations.ini file.")
 
@@ -67,29 +67,29 @@ if not webdriver:
 
 
 try:
-	webdriver.get(captive_portal_url)
-except:
+    web_driver.get(captive_portal_url)
+except Exception:
     print("Error:\tUnable to connect to the Captive Portal.")
     print("\tPlease verify the URL in the configurations.ini file.")
 
     print("\nExiting...")
-    webdriver.close()
+    web_driver.close()
     sys.exit(1)
 
 
-username_field = webdriver.find_element_by_name(username_field_name)
+username_field = web_driver.find_element_by_name(username_field_name)
 username_field.clear()
 
-password_field = webdriver.find_element_by_name(password_field_name)
+password_field = web_driver.find_element_by_name(password_field_name)
 password_field.clear()
 
 password_field.send_keys(username)
 password_field.send_keys(password)
 
-webdriver.find_element_by_name(login_button_name).click()
+web_driver.find_element_by_name(login_button_name).click()
 
 
 print("Success:\tLogged in to the Captive Portal.")
 
 
-webdriver.close()
+web_driver.close()
