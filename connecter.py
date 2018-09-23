@@ -66,4 +66,15 @@ if not webdriver:
     sys.exit(1)
 
 
+try:
+	webdriver.get(captive_portal_url)
+except:
+    print("Error:\tUnable to connect to the Captive Portal.")
+    print("\tPlease verify the URL in the configurations.ini file.")
+
+    print("\nExiting...")
+    webdriver.close()
+    sys.exit(1)
+
+
 webdriver.close()
