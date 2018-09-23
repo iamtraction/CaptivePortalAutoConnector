@@ -77,4 +77,19 @@ except:
     sys.exit(1)
 
 
+username_field = webdriver.find_element_by_name(username_field_name)
+username_field.clear()
+
+password_field = webdriver.find_element_by_name(password_field_name)
+password_field.clear()
+
+password_field.send_keys(username)
+password_field.send_keys(password)
+
+webdriver.find_element_by_name(login_button_name).click()
+
+
+print("Success:\tLogged in to the Captive Portal.")
+
+
 webdriver.close()
